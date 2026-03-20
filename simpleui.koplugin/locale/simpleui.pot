@@ -1,0 +1,587 @@
+# Simple UI — KOReader Plugin
+# Copyright (C) 2024 Simple UI Contributors
+# This file is distributed under the same license as the Simple UI package.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: simpleui\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-03-16 21:54+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+
+msgid "  Physical Books  (%d in %s)"
+msgstr ""
+
+msgid "  Set Goal  (%d books in %s)"
+msgstr ""
+
+msgid "  Set Goal  (%d min/day)"
+msgstr ""
+
+msgid "  Set Goal  (%s)"
+msgstr ""
+
+msgid "  Set Goal  (disabled)"
+msgstr ""
+
+msgid "%d books"
+msgstr ""
+
+msgid "%d%% Read"
+msgstr ""
+
+msgid "%d/%d books"
+msgstr ""
+
+msgid "%s TO GO"
+msgstr ""
+
+msgid "%s read"
+msgstr ""
+
+msgid "Add at least 2 actions to arrange."
+msgstr ""
+
+msgid "Add at least 2 stats to arrange."
+msgstr ""
+
+msgid "All time — Books"
+msgstr ""
+
+msgid "All time — Time"
+msgstr ""
+
+msgid "Annual Goal"
+msgstr ""
+
+msgid "Annual Reading Goal"
+msgstr ""
+
+msgid "Arrange"
+msgstr ""
+
+msgid "Arrange %s"
+msgstr ""
+
+msgid "Arrange Collections"
+msgstr ""
+
+msgid "Arrange Items"
+msgstr ""
+
+msgid "Arrange Modules"
+msgstr ""
+
+msgid "Arrange Reading Stats"
+msgstr ""
+
+msgid "Arrange tabs"
+msgstr ""
+
+msgid "Auto (first book)"
+msgstr ""
+
+msgid "Battery"
+msgstr ""
+
+msgid "Book Info"
+msgstr ""
+
+msgid "Books to read in %s:"
+msgstr ""
+
+msgid "Bottom Bar"
+msgstr ""
+
+msgid "Bottom Bar will be %s after restart.\n\nRestart now?"
+msgstr ""
+
+msgid "Brightness"
+msgstr ""
+
+msgid "Cancel"
+msgstr ""
+
+msgid "Clock"
+msgstr ""
+
+msgid "Collection"
+msgstr ""
+
+msgid "Collection is empty."
+msgstr ""
+
+msgid "Collection not available: %s"
+msgstr ""
+
+msgid "Collections"
+msgstr ""
+
+msgid "Collections not available."
+msgstr ""
+
+msgid "Compact"
+msgstr ""
+
+msgid "Continue"
+msgstr ""
+
+msgid "Create Quick Action"
+msgstr ""
+
+msgid "Currently Reading"
+msgstr ""
+
+msgid "Custom"
+msgstr ""
+
+msgid "Custom Text"
+msgstr ""
+
+msgid "Daily Goal"
+msgstr ""
+
+msgid "Daily Reading Goal"
+msgstr ""
+
+msgid "Daily avg — Pages"
+msgstr ""
+
+msgid "Daily avg — Time"
+msgstr ""
+
+msgid "Date"
+msgstr ""
+
+msgid "Default"
+msgstr ""
+
+msgid "Default (Folder)"
+msgstr ""
+
+msgid "Default (Plugin)"
+msgstr ""
+
+msgid "Default (System)"
+msgstr ""
+
+msgid "Delete"
+msgstr ""
+
+msgid "Dictionary Lookup"
+msgstr ""
+
+msgid "Digital Goal  (%s)"
+msgstr ""
+
+msgid "Digital: %d books in %s"
+msgstr ""
+
+msgid "Disk Usage"
+msgstr ""
+
+msgid "Dispatcher not available."
+msgstr ""
+
+msgid "Edit"
+msgstr ""
+
+msgid "Edit Quick Action"
+msgstr ""
+
+msgid "Enable at least 2 modules to arrange."
+msgstr ""
+
+msgid "Extra Small"
+msgstr ""
+
+msgid "Favorites"
+msgstr ""
+
+msgid "Favorites not available."
+msgstr ""
+
+msgid "File Search"
+msgstr ""
+
+msgid "Folder"
+msgstr ""
+
+msgid "Folder Shortcuts"
+msgstr ""
+
+msgid "Folder not found:\n%s"
+msgstr ""
+
+msgid "Frontlight not available on this device."
+msgstr ""
+
+msgid "Header"
+msgstr ""
+
+msgid "Header Text"
+msgstr ""
+
+msgid "History"
+msgstr ""
+
+msgid "History not available."
+msgstr ""
+
+msgid "Home"
+msgstr ""
+
+msgid "Home Screen"
+msgstr ""
+
+msgid "Homescreen"
+msgstr ""
+
+msgid "Homescreen not available."
+msgstr ""
+
+msgid "Icon"
+msgstr ""
+
+msgid "Icon: Default"
+msgstr ""
+
+msgid "Icons"
+msgstr ""
+
+msgid "Icons only"
+msgstr ""
+
+msgid "Invalid arrangement.\nKeep items between the Left and Right separators."
+msgstr ""
+
+msgid "Items"
+msgstr ""
+
+msgid "Large"
+msgstr ""
+
+msgid "Later"
+msgstr ""
+
+msgid "Left"
+msgstr ""
+
+msgid "Library"
+msgstr ""
+
+msgid "Maximum %d actions per module reached. Remove one first."
+msgstr ""
+
+msgid "Maximum %d modules active. Disable one first."
+msgstr ""
+
+msgid "Maximum %d quick actions reached. Delete one first."
+msgstr ""
+
+msgid "Maximum %d stats per row. Remove one first."
+msgstr ""
+
+msgid "Maximum %d tabs reached. Remove one first."
+msgstr ""
+
+msgid "Maximum 5 collections. Remove one first."
+msgstr ""
+
+msgid "Minimum 2 tabs required. Select another tab first."
+msgstr ""
+
+msgid "Minutes per day:"
+msgstr ""
+
+msgid "Module Settings"
+msgstr ""
+
+msgid "Module limit disabled. Enabling too many modules may slow down the homescreen significantly and modules may be clipped at the bottom of the page."
+msgstr ""
+
+msgid "Modules  (%d — no limit)"
+msgstr ""
+
+msgid "Modules  (%d/%d — %d left)"
+msgstr ""
+
+msgid "Modules  (%d/%d — at limit)"
+msgstr ""
+
+msgid "Name"
+msgstr ""
+
+msgid "Network manager unavailable."
+msgstr ""
+
+msgid "New Quick Action"
+msgstr ""
+
+msgid "No Module Limit  ⚠ not recommended"
+msgstr ""
+
+msgid "No book in history."
+msgstr ""
+
+msgid "No books opened yet"
+msgstr ""
+
+msgid "No collections found."
+msgstr ""
+
+msgid "No collections selected"
+msgstr ""
+
+msgid "No folder, collection or plugin configured.\nGo to Simple UI → Settings → Quick Actions to set one."
+msgstr ""
+
+msgid "No icons found in:"
+msgstr ""
+
+msgid "No plugins found."
+msgstr ""
+
+msgid "No quotes found."
+msgstr ""
+
+msgid "No stats selected"
+msgstr ""
+
+msgid "No system actions found."
+msgstr ""
+
+msgid "OK"
+msgstr ""
+
+msgid "Off"
+msgstr ""
+
+msgid "On"
+msgstr ""
+
+msgid "Open a book to get started"
+msgstr ""
+
+msgid "Pagination Bar"
+msgstr ""
+
+msgid "Pagination bar size will change after restart.\n\nRestart now?"
+msgstr ""
+
+msgid "Pagination bar will be %s after restart.\n\nRestart now?"
+msgstr ""
+
+msgid "Path is not a folder:\n%s"
+msgstr ""
+
+msgid "Physical Books — %s"
+msgstr ""
+
+msgid "Physical books read this year:"
+msgstr ""
+
+msgid "Physical: %d books in %s"
+msgstr ""
+
+msgid "Plugin"
+msgstr ""
+
+msgid "Plugin error: %s"
+msgstr ""
+
+msgid "Plugin not available: %s"
+msgstr ""
+
+msgid "Power"
+msgstr ""
+
+msgid "Quick Actions"
+msgstr ""
+
+msgid "Quick Actions  (%d/%d — %d left)"
+msgstr ""
+
+msgid "Quick Actions  (%d/%d — at limit)"
+msgstr ""
+
+msgid "Quick Actions %d"
+msgstr ""
+
+msgid "Quit"
+msgstr ""
+
+msgid "Quote of the Day"
+msgstr ""
+
+msgid "RAM Usage"
+msgstr ""
+
+msgid "Reading Goals"
+msgstr ""
+
+msgid "Reading Stats"
+msgstr ""
+
+msgid "Recent Books"
+msgstr ""
+
+msgid "Restart"
+msgstr ""
+
+msgid "Right"
+msgstr ""
+
+msgid "Save"
+msgstr ""
+
+msgid "Select at least 2 collections to arrange."
+msgstr ""
+
+msgid "Settings"
+msgstr ""
+
+msgid "Show Labels"
+msgstr ""
+
+msgid "Simple UI"
+msgstr ""
+
+msgid "Simple UI will be %s after restart.\n\nRestart now?"
+msgstr ""
+
+msgid "Size"
+msgstr ""
+
+msgid "Small"
+msgstr ""
+
+msgid "Start with"
+msgstr ""
+
+msgid "Start with Home Screen"
+msgstr ""
+
+msgid "Statistics plugin not available."
+msgstr ""
+
+msgid "Stats"
+msgstr ""
+
+msgid "Streak"
+msgstr ""
+
+msgid "Swipe Indicator"
+msgstr ""
+
+msgid "System Actions"
+msgstr ""
+
+msgid "System action error: %s"
+msgstr ""
+
+msgid "Tabs  (%d/%d — %d left)"
+msgstr ""
+
+msgid "Tabs  (%d/%d — at limit)"
+msgstr ""
+
+msgid "Text"
+msgstr ""
+
+msgid "Text only"
+msgstr ""
+
+msgid "Today"
+msgstr ""
+
+msgid "Today — Pages"
+msgstr ""
+
+msgid "Today — Time"
+msgstr ""
+
+msgid "Top Bar"
+msgstr ""
+
+msgid "Top Bar will be %s after restart.\n\nRestart now?"
+msgstr ""
+
+msgid "Type"
+msgstr ""
+
+msgid "Wi-Fi"
+msgstr ""
+
+msgid "Wi-Fi off"
+msgstr ""
+
+msgid "WiFi"
+msgstr ""
+
+msgid "WiFi not available on this device."
+msgstr ""
+
+msgid "Wikipedia Lookup"
+msgstr ""
+
+msgid "books finished"
+msgstr ""
+
+msgid "daily avg (7 days)"
+msgstr ""
+
+msgid "day streak"
+msgstr ""
+
+msgid "days streak"
+msgstr ""
+
+msgid "disabled"
+msgstr ""
+
+msgid "e.g. Books…"
+msgstr ""
+
+msgid "e.g. My Library"
+msgstr ""
+
+msgid "e.g. Rakuyomi…"
+msgstr ""
+
+msgid "e.g. Sci-Fi…"
+msgstr ""
+
+msgid "e.g. Sleep, Refresh…"
+msgstr ""
+
+msgid "enabled"
+msgstr ""
+
+msgid "hidden"
+msgstr ""
+
+msgid "not configured"
+msgstr ""
+
+msgid "of reading today"
+msgstr ""
+
+msgid "of reading, all time"
+msgstr ""
+
+msgid "pages read today"
+msgstr ""
+
+msgid "pages/day (7 days)"
+msgstr ""
+
+msgid "visible"
+msgstr ""

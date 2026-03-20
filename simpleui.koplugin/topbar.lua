@@ -1,0 +1,476 @@
+-- topbar.lua — Simple UI
+-- Status bar rendered at the top of the screen: clock, Wi-Fi, battery,
+-- brightness, disk usage and RAM. Supports left/right item placement.
+
+local FrameContainer  = require("ui/widget/container/framecontainer")
+local CenterContainer = require("ui/widget/container/centercontainer")
+local datetime        = require("datetime")
+local LeftContainer   = require("ui/widget/container/leftcontainer")
+local RightContainer  = require("ui/widget/container/rightcontainer")
+local OverlapGroup    = require("ui/widget/overlapgroup")
+local HorizontalGroup = require("ui/widget/horizontalgroup")
+local TextWidget      = require("ui/widget/textwidget")
+local Geom            = require("ui/geometry")
+local Font            = require("ui/font")
+local Blitbuffer      = require("ffi/blitbuffer")
+local UIManager       = require("ui/uimanager")
+local InfoMessage     = require("ui/widget/infomessage")
+local Device          = require("device")
+local Screen          = Device.screen
+local logger          = require("logger")
+local _               = require("gettext")
+
+local Config = require("config")
+
+local M = {}
+
+-- ---------------------------------------------------------------------------
+-- Hardware capability flags — queried once per session, never change at runtime.
+-- nil = not yet tested; true/false = result cached.
+-- ---------------------------------------------------------------------------
+local _hw_has_battery = nil
+local _hw_has_wifi    = nil
+local _hw_has_bt      = nil
+
+local function hwHasBattery()
+    if _hw_has_battery == nil then
+        local ok, v = pcall(function() return Device:hasBattery() end)
+        _hw_has_battery = ok and v == true
+    end
+    return _hw_has_battery
+end
+
+local function hwHasWifi()
+    if _hw_has_wifi == nil then
+        local ok, v = pcall(function() return Device:hasWifiToggle() end)
+        _hw_has_wifi = ok and v == true
+    end
+    return _hw_has_wifi
+end
+
+local function hwHasBt()
+    if _hw_has_bt == nil then
+        local ok, v = pcall(function() return Device:hasBluetoothToggle() end)
+        _hw_has_bt = ok and v == true
+    end
+    return _hw_has_bt
+end
+
+-- ---------------------------------------------------------------------------
+-- Dimensions
+-- ---------------------------------------------------------------------------
+
+local _dim = {}
+
+local function _cached(key, fn)
+    if not _dim[key] then _dim[key] = fn() end
+    return _dim[key]
+end
+
+local function _getTopbarScale()
+    local key = G_reader_settings:readSetting("navbar_topbar_size") or "default"
+    return key == "large" and 1.4 or 1.0
+end
+
+function M.SIDE_M()        return require("ui").SIDE_M()        end  -- delegação para ui.lua
+function M.TOPBAR_SIDE_M() return _cached("topbar_side_m", function() return M.SIDE_M() - 3 end) end
+
+function M.TOPBAR_H()
+    return _cached("topbar_h", function()
+        return math.floor(Screen:scaleBySize(18) * _getTopbarScale())
+    end)
+end
+function M.TOPBAR_FS()
+    return _cached("topbar_fs", function()
+        return math.floor(Screen:scaleBySize(8) * _getTopbarScale())
+    end)
+end
+function M.TOPBAR_CHEVRON_FS()
+    return _cached("tb_chev_fs", function()
+        return math.floor(Screen:scaleBySize(22) * _getTopbarScale())
+    end)
+end
+function M.TOPBAR_PAD_TOP()
+    return _cached("tb_pad_top", function()
+        return math.floor(Screen:scaleBySize(20) * _getTopbarScale())
+    end)
+end
+function M.TOPBAR_PAD_BOT()
+    return _cached("tb_pad_bot", function()
+        return math.floor(Screen:scaleBySize(8) * _getTopbarScale())
+    end)
+end
+function M.TOTAL_TOP_H()
+    return M.TOPBAR_H() + M.TOPBAR_PAD_TOP() + M.TOPBAR_PAD_BOT()
+end
+
+-- ---------------------------------------------------------------------------
+-- Slow-data caches — declared here so invalidateDimCache can reference them
+-- ---------------------------------------------------------------------------
+
+local _topbar_cfg_cache = nil   -- topbar config (invalidated on settings change)
+local _topbar_disk_text = nil
+local _topbar_disk_time = 0
+local _topbar_ram_mb    = nil
+local _topbar_ram_time  = 0
+
+function M.invalidateDimCache()
+    _dim = {}
+    _topbar_cfg_cache = nil  -- P5: settings may have changed, force re-read
+    -- Also reset slow-data caches so they are refreshed on the next tick.
+    _topbar_ram_mb    = nil
+    _topbar_ram_time  = 0
+    _topbar_disk_text = nil
+    _topbar_disk_time = 0
+    -- Hardware capability flags are session-stable, but reset them here so that
+    -- a plugin teardown+re-enable cycle (or device state change) gets a fresh read.
+    _hw_has_battery = nil
+    _hw_has_wifi    = nil
+    _hw_has_bt      = nil
+end
+
+-- ---------------------------------------------------------------------------
+-- Topbar config cache — avoids re-parsing G_reader_settings on every minute-tick
+-- ---------------------------------------------------------------------------
+
+local function getTopbarConfigCached()
+    if not _topbar_cfg_cache then
+        _topbar_cfg_cache = Config.getTopbarConfig()
+    end
+    return _topbar_cfg_cache
+end
+
+function M.invalidateConfigCache()
+    _topbar_cfg_cache = nil
+end
+
+-- ---------------------------------------------------------------------------
+-- Disk-usage cache helpers
+-- ---------------------------------------------------------------------------
+
+function M.invalidateDiskCache()
+    _topbar_disk_text = nil
+    _topbar_disk_time = 0
+end
+
+-- ---------------------------------------------------------------------------
+-- RAM-usage cache (refreshed every 5 minutes)
+-- ---------------------------------------------------------------------------
+
+function M.invalidateRamCache()
+    _topbar_ram_mb   = nil
+    _topbar_ram_time = 0
+end
+
+-- ---------------------------------------------------------------------------
+-- System state readers
+-- ---------------------------------------------------------------------------
+
+function M.getTopbarInfo()
+    local info = { time = datetime.secondsToHour(os.time(), G_reader_settings:isTrue("twelve_hour_clock")) }
+
+    if hwHasBattery() then
+        local ok_p, powerd = pcall(function() return Device:getPowerDevice() end)
+        if ok_p and powerd then
+            local ok_c, cap = pcall(function() return powerd:getCapacity() end)
+            if ok_c and type(cap) == "number" then
+                info.battery  = cap
+                local ok_chg, chg = pcall(function() return powerd:isCharging() end)
+                local ok_chd, chd = pcall(function() return powerd:isCharged() end)
+                info.charging     = ok_chg and chg or false
+                local ok_s, sym   = pcall(function()
+                    return powerd:getBatterySymbol(ok_chd and chd, info.charging, cap)
+                end)
+                info.battery_sym = ok_s and sym or ""
+            end
+        end
+    end
+
+    if hwHasWifi() then
+        -- Use optimistic state set immediately on toggle (same as bottom bar).
+        if Config.wifi_optimistic ~= nil then
+            info.wifi = Config.wifi_optimistic == true
+        else
+            local nm = Config.getNetworkMgr()
+            if nm then
+                local ok_w, wifi_on = pcall(function() return nm:isWifiOn() end)
+                info.wifi = ok_w and not not wifi_on or false
+            else
+                info.wifi = false
+            end
+        end
+    else
+        info.wifi = false
+    end
+
+    if hwHasBt() then
+        local ok_b, bt = pcall(function() return Device:isBluetoothOn() end)
+        info.bluetooth = ok_b and not not bt or false
+    else
+        info.bluetooth = false
+    end
+
+    local ok_br, br = pcall(function()
+        local pd = Device:getPowerDevice()
+        return pd and pd:frontlightIntensity()
+    end)
+    if ok_br and type(br) == "number" then
+        info.brightness = br
+    else
+        local ok_sc, sc_br = pcall(function() return Screen:getBrightness() end)
+        if ok_sc and type(sc_br) == "number" then
+            info.brightness = sc_br > 1
+                and math.floor(sc_br / 255 * 100 + 0.5)
+                or  math.floor(sc_br * 100 + 0.5)
+        end
+    end
+
+    pcall(function()
+        local now = os.time()
+        -- TTL of 5s: /proc/self/statm is a kernel in-memory read (~microseconds),
+        -- so reading it every minute-tick is safe. 5s gives useful feedback for
+        -- profiling without measurable overhead.
+        if _topbar_ram_mb and (now - _topbar_ram_time) < 5 then
+            info.ram = _topbar_ram_mb
+        else
+            local f = io.open("/proc/self/statm", "r")
+            if f then
+                local line = f:read("*l"); f:close()
+                if line then
+                    local rss = line:match("%S+%s+(%d+)")
+                    if rss then
+                        local mb = math.floor(tonumber(rss) * 4 / 1024)
+                        _topbar_ram_mb   = mb
+                        _topbar_ram_time = now
+                        info.ram         = mb
+                    end
+                end
+            end
+        end
+    end)
+
+    pcall(function()
+        local now = os.time()
+        if _topbar_disk_text and (now - (_topbar_disk_time or 0)) < 300 then
+            info.disk = _topbar_disk_text; return
+        end
+        local ok_util, util = pcall(require, "util")
+        if not ok_util or not util or type(util.df) ~= "function" then return end
+        local drive = Device:isKobo() and "/mnt/onboard" or "/"
+        local ok_df, free_kb = pcall(util.df, drive)
+        if ok_df and free_kb and free_kb > 0 then
+            local text = string.format("%.1fG", free_kb / 1024 / 1024)
+            _topbar_disk_text = text
+            _topbar_disk_time = now
+            info.disk         = text
+        end
+    end)
+
+    return info
+end
+
+-- ---------------------------------------------------------------------------
+-- Widget construction
+-- ---------------------------------------------------------------------------
+
+function M.buildTopbarWidget()
+    local screen_w  = Screen:getWidth()
+    local side_m    = M.TOPBAR_SIDE_M()
+    local pad_top   = M.TOPBAR_PAD_TOP()
+    local pad_bot   = M.TOPBAR_PAD_BOT()
+    local total_h   = M.TOPBAR_H() + pad_top + pad_bot
+    local face      = Font:getFace("cfont", M.TOPBAR_FS())
+    local icon_face = Font:getFace("xx_smallinfofont", M.TOPBAR_FS())
+    local info      = M.getTopbarInfo()
+    local tb_cfg    = getTopbarConfigCached()
+
+    local item_builders = {
+        clock = function()
+            return nil, info.time, false
+        end,
+        wifi = function()
+            if not info.wifi then return nil, nil end
+            return "\u{ECA8}", nil, true
+        end,
+        brightness = function()
+            if not info.brightness then return nil, nil end
+            return "\xe2\x98\x80", " " .. info.brightness, false
+        end,
+        battery = function()
+            if not info.battery then return nil, nil end
+            return (info.battery_sym or ""), info.battery .. "%", false
+        end,
+        disk = function()
+            if not info.disk then return nil, nil end
+            return "\u{F0A0}", " " .. info.disk, true
+        end,
+        ram = function()
+            if not info.ram then return nil, nil end
+            return "\u{EA5A}", " " .. info.ram .. "M", true
+        end,
+    }
+
+    local function buildSideGroup(order)
+        local group = HorizontalGroup:new{}
+        local first = true
+        for _, key in ipairs(order) do
+            if (tb_cfg.side[key] or "hidden") ~= "hidden" then
+                local builder = item_builders[key]
+                if builder then
+                    local icon, label, is_nerd = builder()
+                    if icon or (label and label ~= "") then
+                        if not first then
+                            group[#group + 1] = TextWidget:new{
+                                text = "  ", face = face, fgcolor = Blitbuffer.COLOR_BLACK,
+                            }
+                        end
+                        if icon then
+                            group[#group + 1] = TextWidget:new{
+                                text    = icon,
+                                face    = is_nerd and icon_face or face,
+                                fgcolor = Blitbuffer.COLOR_BLACK,
+                            }
+                        end
+                        if label and label ~= "" then
+                            group[#group + 1] = TextWidget:new{
+                                text    = label,
+                                face    = face,
+                                fgcolor = Blitbuffer.COLOR_BLACK,
+                            }
+                        end
+                        first = false
+                    end
+                end
+            end
+        end
+        return group
+    end
+
+    local inner_w = screen_w - side_m * 2
+
+    local left_w = LeftContainer:new{
+        dimen = Geom:new{ w = inner_w, h = total_h },
+        buildSideGroup(tb_cfg.order_left),
+    }
+    local right_w = RightContainer:new{
+        dimen = Geom:new{ w = inner_w, h = total_h },
+        buildSideGroup(tb_cfg.order_right),
+    }
+
+    local show_swipe = G_reader_settings:nilOrTrue("navbar_topbar_swipe_indicator")
+    local center_w   = show_swipe and CenterContainer:new{
+        dimen = Geom:new{ w = inner_w, h = total_h },
+        TextWidget:new{
+            text    = "\xef\xb9\x80",
+            face    = Font:getFace("cfont", M.TOPBAR_CHEVRON_FS()),
+            fgcolor = Blitbuffer.COLOR_BLACK,
+        },
+    } or nil
+
+    local row = OverlapGroup:new{
+        dimen  = Geom:new{ w = inner_w, h = total_h },
+        left_w, right_w, center_w,
+    }
+
+    return FrameContainer:new{
+        bordersize    = 0, padding = 0, margin = 0,
+        padding_left  = side_m, padding_right = side_m,
+        background    = Blitbuffer.COLOR_WHITE,
+        row,
+    }
+end
+
+-- ---------------------------------------------------------------------------
+-- Topbar touch zones
+-- ---------------------------------------------------------------------------
+
+function M.registerTouchZones(plugin, fm_self)
+    if fm_self.unregisterTouchZones then
+        fm_self:unregisterTouchZones({
+            { id = "navbar_topbar_hold_start"    },
+            { id = "navbar_topbar_hold_settings" },
+            { id = "navbar_title_hold_start"     },
+            { id = "navbar_title_hold_settings"  },
+        })
+    end
+
+    if not G_reader_settings:nilOrTrue("navbar_topbar_enabled") then return end
+
+    local screen_h    = Screen:getHeight()
+    local topbar_h    = M.TOTAL_TOP_H()
+    local topbar_zone = { ratio_x = 0, ratio_y = 0, ratio_w = 1, ratio_h = topbar_h / screen_h }
+
+    fm_self:registerTouchZones({
+        {
+            id          = "navbar_topbar_hold_start",
+            ges         = "hold",
+            screen_zone = topbar_zone,
+            handler     = function(_ges) return true end,
+        },
+        {
+            id          = "navbar_topbar_hold_settings",
+            ges         = "hold_release",
+            screen_zone = topbar_zone,
+            handler = function(_ges)
+                if not plugin._makeTopbarMenu then plugin:addToMainMenu({}) end
+                local UI_mod    = require("ui")
+                local Bottombar = require("bottombar")
+                -- Delegates to the shared implementation in ui.lua (#4).
+                UI_mod.showSettingsMenu(_("Top Bar"), plugin._makeTopbarMenu,
+                    M.TOTAL_TOP_H(), screen_h, Bottombar.TOTAL_H())
+                return true
+            end,
+        },
+    })
+end
+
+-- ---------------------------------------------------------------------------
+-- Refresh timer
+-- ---------------------------------------------------------------------------
+
+local function shouldRunTimer()
+    if not G_reader_settings:nilOrTrue("navbar_topbar_enabled") then return false end
+    local cfg = getTopbarConfigCached()   -- usa a cache em vez de reconstruir a tabela (#5)
+    if (cfg.side["clock"] or "hidden") == "hidden" then return false end
+    -- Use package.loaded to avoid any pcall overhead; ReaderUI is only present
+    -- while a book is open, and the timer is cancelled before that anyway.
+    local RUI = package.loaded["apps/reader/readerui"]
+    if RUI and RUI.instance then return false end
+    return true
+end
+
+function M.scheduleRefresh(plugin, delay)
+    if plugin._topbar_timer then
+        UIManager:unschedule(plugin._topbar_timer)
+        plugin._topbar_timer = nil
+    end
+    if not shouldRunTimer() then return end
+    plugin._topbar_timer = function() M.refresh(plugin) end
+    UIManager:scheduleIn(delay, plugin._topbar_timer)
+end
+
+function M.refresh(plugin)
+    if not shouldRunTimer() then return end
+    local UI    = require("ui")
+    local stack = UI.getWindowStack()  -- read once
+    -- Each widget gets its own topbar instance. Sharing a single object across
+    -- multiple _navbar_containers is unsafe: replaceTopbar mutates overlap_offset
+    -- in-place, so the first paint would corrupt the offset seen by subsequent
+    -- containers holding the same reference.
+    local seen = {}
+    local function refreshWidget(w)
+        if not w or not w._navbar_container or seen[w] then return end
+        seen[w] = true
+        UI.replaceTopbar(w, M.buildTopbarWidget())
+        UIManager:setDirty(w, "ui")
+    end
+    refreshWidget(plugin.ui)
+    for _, entry in ipairs(stack) do
+        local ok, err = pcall(refreshWidget, entry.widget)
+        if not ok then logger.warn("simpleui: topbar refreshWidget failed:", tostring(err)) end
+    end
+    local delay = 60 - (os.time() % 60) + 1
+    M.scheduleRefresh(plugin, delay)
+end
+
+return M

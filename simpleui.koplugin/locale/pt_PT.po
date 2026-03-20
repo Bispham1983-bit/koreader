@@ -1,0 +1,589 @@
+# Simple UI — KOReader Plugin
+# Portuguese (Portugal) translation
+# Copyright (C) 2024 Simple UI Contributors
+# This file is distributed under the same license as the Simple UI package.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: simpleui\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-03-16 21:54+0000\n"
+"PO-Revision-Date: 2026-03-16 21:54+0000\n"
+"Last-Translator: \n"
+"Language-Team: Portuguese (Portugal)\n"
+"Language: pt_PT\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+
+msgid "  Physical Books  (%d in %s)"
+msgstr "  Livros Físicos  (%d em %s)"
+
+msgid "  Set Goal  (%d books in %s)"
+msgstr "  Definir Meta  (%d livros em %s)"
+
+msgid "  Set Goal  (%d min/day)"
+msgstr "  Definir Meta  (%d min/dia)"
+
+msgid "  Set Goal  (%s)"
+msgstr "  Definir Meta  (%s)"
+
+msgid "  Set Goal  (disabled)"
+msgstr "  Definir Meta  (desativada)"
+
+msgid "%d books"
+msgstr "%d livros"
+
+msgid "%d%% Read"
+msgstr "%d%% Lido"
+
+msgid "%d/%d books"
+msgstr "%d/%d livros"
+
+msgid "%s TO GO"
+msgstr "%s RESTANTES"
+
+msgid "%s read"
+msgstr "%s lidos"
+
+msgid "Add at least 2 actions to arrange."
+msgstr "Adicione pelo menos 2 ações para reorganizar."
+
+msgid "Add at least 2 stats to arrange."
+msgstr "Adicione pelo menos 2 estatísticas para reorganizar."
+
+msgid "All time — Books"
+msgstr "Total — Livros"
+
+msgid "All time — Time"
+msgstr "Total — Tempo"
+
+msgid "Annual Goal"
+msgstr "Meta Anual"
+
+msgid "Annual Reading Goal"
+msgstr "Meta Anual de Leitura"
+
+msgid "Arrange"
+msgstr "Reorganizar"
+
+msgid "Arrange %s"
+msgstr "Reorganizar %s"
+
+msgid "Arrange Collections"
+msgstr "Reorganizar Coleções"
+
+msgid "Arrange Items"
+msgstr "Reorganizar Itens"
+
+msgid "Arrange Modules"
+msgstr "Reorganizar Módulos"
+
+msgid "Arrange Reading Stats"
+msgstr "Reorganizar Estatísticas de Leitura"
+
+msgid "Arrange tabs"
+msgstr "Reorganizar separadores"
+
+msgid "Auto (first book)"
+msgstr "Auto (primeiro livro)"
+
+msgid "Battery"
+msgstr "Bateria"
+
+msgid "Book Info"
+msgstr "Info do Livro"
+
+msgid "Books to read in %s:"
+msgstr "Livros a ler em %s:"
+
+msgid "Bottom Bar"
+msgstr "Barra Inferior"
+
+msgid "Bottom Bar will be %s after restart.\n\nRestart now?"
+msgstr "A barra inferior ficará %s após reiniciar.\n\nReiniciar agora?"
+
+msgid "Brightness"
+msgstr "Brilho"
+
+msgid "Cancel"
+msgstr "Cancelar"
+
+msgid "Clock"
+msgstr "Relógio"
+
+msgid "Collection"
+msgstr "Coleção"
+
+msgid "Collection is empty."
+msgstr "Coleção vazia."
+
+msgid "Collection not available: %s"
+msgstr "Coleção não disponível: %s"
+
+msgid "Collections"
+msgstr "Coleções"
+
+msgid "Collections not available."
+msgstr "Coleções não disponíveis."
+
+msgid "Compact"
+msgstr "Compacto"
+
+msgid "Continue"
+msgstr "Continuar"
+
+msgid "Create Quick Action"
+msgstr "Criar Ação Rápida"
+
+msgid "Currently Reading"
+msgstr "A Ler"
+
+msgid "Custom"
+msgstr "Personalizado"
+
+msgid "Custom Text"
+msgstr "Texto Personalizado"
+
+msgid "Daily Goal"
+msgstr "Meta Diária"
+
+msgid "Daily Reading Goal"
+msgstr "Meta Diária de Leitura"
+
+msgid "Daily avg — Pages"
+msgstr "Média diária — Páginas"
+
+msgid "Daily avg — Time"
+msgstr "Média diária — Tempo"
+
+msgid "Date"
+msgstr "Data"
+
+msgid "Default"
+msgstr "Predefinido"
+
+msgid "Default (Folder)"
+msgstr "Predefinido (Pasta)"
+
+msgid "Default (Plugin)"
+msgstr "Predefinido (Plugin)"
+
+msgid "Default (System)"
+msgstr "Predefinido (Sistema)"
+
+msgid "Delete"
+msgstr "Eliminar"
+
+msgid "Dictionary Lookup"
+msgstr "Consultar Dicionário"
+
+msgid "Digital Goal  (%s)"
+msgstr "Meta Digital  (%s)"
+
+msgid "Digital: %d books in %s"
+msgstr "Digital: %d livros em %s"
+
+msgid "Disk Usage"
+msgstr "Utilização do Disco"
+
+msgid "Dispatcher not available."
+msgstr "Dispatcher não disponível."
+
+msgid "Edit"
+msgstr "Editar"
+
+msgid "Edit Quick Action"
+msgstr "Editar Ação Rápida"
+
+msgid "Enable at least 2 modules to arrange."
+msgstr "Ative pelo menos 2 módulos para reorganizar."
+
+msgid "Extra Small"
+msgstr "Extra Pequeno"
+
+msgid "Favorites"
+msgstr "Favoritos"
+
+msgid "Favorites not available."
+msgstr "Favoritos não disponíveis."
+
+msgid "File Search"
+msgstr "Pesquisa de Ficheiro"
+
+msgid "Folder"
+msgstr "Pasta"
+
+msgid "Folder Shortcuts"
+msgstr "Atalhos de Pasta"
+
+msgid "Folder not found:\n%s"
+msgstr "Pasta não encontrada:\n%s"
+
+msgid "Frontlight not available on this device."
+msgstr "Luz frontal não disponível neste dispositivo."
+
+msgid "Header"
+msgstr "Cabeçalho"
+
+msgid "Header Text"
+msgstr "Texto do Cabeçalho"
+
+msgid "History"
+msgstr "Histórico"
+
+msgid "History not available."
+msgstr "Histórico não disponível."
+
+msgid "Home"
+msgstr "Início"
+
+msgid "Home Screen"
+msgstr "Ecrã Inicial"
+
+msgid "Homescreen"
+msgstr "Ecrã Inicial"
+
+msgid "Homescreen not available."
+msgstr "Ecrã inicial não disponível."
+
+msgid "Icon"
+msgstr "Ícone"
+
+msgid "Icon: Default"
+msgstr "Ícone: Predefinido"
+
+msgid "Icons"
+msgstr "Ícones"
+
+msgid "Icons only"
+msgstr "Apenas ícones"
+
+msgid "Invalid arrangement.\nKeep items between the Left and Right separators."
+msgstr "Disposição inválida.\nMantenha os itens entre os separadores Esquerdo e Direito."
+
+msgid "Items"
+msgstr "Itens"
+
+msgid "Large"
+msgstr "Grande"
+
+msgid "Later"
+msgstr "Mais tarde"
+
+msgid "Left"
+msgstr "Esquerda"
+
+msgid "Library"
+msgstr "Biblioteca"
+
+msgid "Maximum %d actions per module reached. Remove one first."
+msgstr "Máximo de %d ações por módulo atingido. Remova uma primeiro."
+
+msgid "Maximum %d modules active. Disable one first."
+msgstr "Máximo de %d módulos ativos. Desative um primeiro."
+
+msgid "Maximum %d quick actions reached. Delete one first."
+msgstr "Máximo de %d ações rápidas atingido. Elimine uma primeiro."
+
+msgid "Maximum %d stats per row. Remove one first."
+msgstr "Máximo de %d estatísticas por linha. Remova uma primeiro."
+
+msgid "Maximum %d tabs reached. Remove one first."
+msgstr "Máximo de %d separadores atingido. Remova um primeiro."
+
+msgid "Maximum 5 collections. Remove one first."
+msgstr "Máximo de 5 coleções. Remova uma primeiro."
+
+msgid "Minimum 2 tabs required. Select another tab first."
+msgstr "Mínimo de 2 separadores necessário. Selecione outro separador primeiro."
+
+msgid "Minutes per day:"
+msgstr "Minutos por dia:"
+
+msgid "Module Settings"
+msgstr "Definições do Módulo"
+
+msgid "Module limit disabled. Enabling too many modules may slow down the homescreen significantly and modules may be clipped at the bottom of the page."
+msgstr "Limite de módulos desativado. Ativar demasiados módulos pode tornar o ecrã inicial significativamente mais lento e os módulos podem ser cortados na parte inferior da página."
+
+msgid "Modules  (%d — no limit)"
+msgstr "Módulos  (%d — sem limite)"
+
+msgid "Modules  (%d/%d — %d left)"
+msgstr "Módulos  (%d/%d — %d restantes)"
+
+msgid "Modules  (%d/%d — at limit)"
+msgstr "Módulos  (%d/%d — no limite)"
+
+msgid "Name"
+msgstr "Nome"
+
+msgid "Network manager unavailable."
+msgstr "Gestor de rede indisponível."
+
+msgid "New Quick Action"
+msgstr "Nova Ação Rápida"
+
+msgid "No Module Limit  ⚠ not recommended"
+msgstr "Sem Limite de Módulos  ⚠ não recomendado"
+
+msgid "No book in history."
+msgstr "Nenhum livro no histórico."
+
+msgid "No books opened yet"
+msgstr "Nenhum livro aberto ainda"
+
+msgid "No collections found."
+msgstr "Nenhuma coleção encontrada."
+
+msgid "No collections selected"
+msgstr "Nenhuma coleção selecionada"
+
+msgid "No folder, collection or plugin configured.\nGo to Simple UI → Settings → Quick Actions to set one."
+msgstr "Nenhuma pasta, coleção ou plugin configurado.\nVá a Simple UI → Definições → Ações Rápidas para configurar."
+
+msgid "No icons found in:"
+msgstr "Nenhum ícone encontrado em:"
+
+msgid "No plugins found."
+msgstr "Nenhum plugin encontrado."
+
+msgid "No quotes found."
+msgstr "Nenhuma citação encontrada."
+
+msgid "No stats selected"
+msgstr "Nenhuma estatística selecionada"
+
+msgid "No system actions found."
+msgstr "Nenhuma ação do sistema encontrada."
+
+msgid "OK"
+msgstr "OK"
+
+msgid "Off"
+msgstr "Desligado"
+
+msgid "On"
+msgstr "Ligado"
+
+msgid "Open a book to get started"
+msgstr "Abra um livro para começar"
+
+msgid "Pagination Bar"
+msgstr "Barra de Paginação"
+
+msgid "Pagination bar size will change after restart.\n\nRestart now?"
+msgstr "O tamanho da barra de paginação mudará após reiniciar.\n\nReiniciar agora?"
+
+msgid "Pagination bar will be %s after restart.\n\nRestart now?"
+msgstr "A barra de paginação ficará %s após reiniciar.\n\nReiniciar agora?"
+
+msgid "Path is not a folder:\n%s"
+msgstr "O caminho não é uma pasta:\n%s"
+
+msgid "Physical Books — %s"
+msgstr "Livros Físicos — %s"
+
+msgid "Physical books read this year:"
+msgstr "Livros físicos lidos este ano:"
+
+msgid "Physical: %d books in %s"
+msgstr "Físico: %d livros em %s"
+
+msgid "Plugin"
+msgstr "Plugin"
+
+msgid "Plugin error: %s"
+msgstr "Erro no plugin: %s"
+
+msgid "Plugin not available: %s"
+msgstr "Plugin não disponível: %s"
+
+msgid "Power"
+msgstr "Energia"
+
+msgid "Quick Actions"
+msgstr "Ações Rápidas"
+
+msgid "Quick Actions  (%d/%d — %d left)"
+msgstr "Ações Rápidas  (%d/%d — %d restantes)"
+
+msgid "Quick Actions  (%d/%d — at limit)"
+msgstr "Ações Rápidas  (%d/%d — no limite)"
+
+msgid "Quick Actions %d"
+msgstr "Ações Rápidas %d"
+
+msgid "Quit"
+msgstr "Sair"
+
+msgid "Quote of the Day"
+msgstr "Citação do Dia"
+
+msgid "RAM Usage"
+msgstr "Utilização de RAM"
+
+msgid "Reading Goals"
+msgstr "Metas de Leitura"
+
+msgid "Reading Stats"
+msgstr "Estatísticas de Leitura"
+
+msgid "Recent Books"
+msgstr "Livros Recentes"
+
+msgid "Restart"
+msgstr "Reiniciar"
+
+msgid "Right"
+msgstr "Direita"
+
+msgid "Save"
+msgstr "Guardar"
+
+msgid "Select at least 2 collections to arrange."
+msgstr "Selecione pelo menos 2 coleções para reorganizar."
+
+msgid "Settings"
+msgstr "Definições"
+
+msgid "Show Labels"
+msgstr "Mostrar Etiquetas"
+
+msgid "Simple UI"
+msgstr "Simple UI"
+
+msgid "Simple UI will be %s after restart.\n\nRestart now?"
+msgstr "O Simple UI ficará %s após reiniciar.\n\nReiniciar agora?"
+
+msgid "Size"
+msgstr "Tamanho"
+
+msgid "Small"
+msgstr "Pequeno"
+
+msgid "Start with"
+msgstr "Iniciar com"
+
+msgid "Start with Home Screen"
+msgstr "Iniciar com o Ecrã Inicial"
+
+msgid "Statistics plugin not available."
+msgstr "Plugin de estatísticas não disponível."
+
+msgid "Stats"
+msgstr "Estatísticas"
+
+msgid "Streak"
+msgstr "Sequência"
+
+msgid "Swipe Indicator"
+msgstr "Indicador de Deslize"
+
+msgid "System Actions"
+msgstr "Ações do Sistema"
+
+msgid "System action error: %s"
+msgstr "Erro na ação do sistema: %s"
+
+msgid "Tabs  (%d/%d — %d left)"
+msgstr "Separadores  (%d/%d — %d restantes)"
+
+msgid "Tabs  (%d/%d — at limit)"
+msgstr "Separadores  (%d/%d — no limite)"
+
+msgid "Text"
+msgstr "Texto"
+
+msgid "Text only"
+msgstr "Apenas texto"
+
+msgid "Today"
+msgstr "Hoje"
+
+msgid "Today — Pages"
+msgstr "Hoje — Páginas"
+
+msgid "Today — Time"
+msgstr "Hoje — Tempo"
+
+msgid "Top Bar"
+msgstr "Barra Superior"
+
+msgid "Top Bar will be %s after restart.\n\nRestart now?"
+msgstr "A barra superior ficará %s após reiniciar.\n\nReiniciar agora?"
+
+msgid "Type"
+msgstr "Tipo"
+
+msgid "Wi-Fi"
+msgstr "Wi-Fi"
+
+msgid "Wi-Fi off"
+msgstr "Wi-Fi desligado"
+
+msgid "WiFi"
+msgstr "Wi-Fi"
+
+msgid "WiFi not available on this device."
+msgstr "Wi-Fi não disponível neste dispositivo."
+
+msgid "Wikipedia Lookup"
+msgstr "Consultar Wikipedia"
+
+msgid "books finished"
+msgstr "livros concluídos"
+
+msgid "daily avg (7 days)"
+msgstr "média diária (7 dias)"
+
+msgid "day streak"
+msgstr "dia de sequência"
+
+msgid "days streak"
+msgstr "dias de sequência"
+
+msgid "disabled"
+msgstr "desativado"
+
+msgid "e.g. Books…"
+msgstr "ex.: Livros…"
+
+msgid "e.g. My Library"
+msgstr "ex.: A Minha Biblioteca"
+
+msgid "e.g. Rakuyomi…"
+msgstr "ex.: Rakuyomi…"
+
+msgid "e.g. Sci-Fi…"
+msgstr "ex.: Ficção Científica…"
+
+msgid "e.g. Sleep, Refresh…"
+msgstr "ex.: Dormir, Atualizar…"
+
+msgid "enabled"
+msgstr "ativado"
+
+msgid "hidden"
+msgstr "oculto"
+
+msgid "not configured"
+msgstr "não configurado"
+
+msgid "of reading today"
+msgstr "de leitura hoje"
+
+msgid "of reading, all time"
+msgstr "de leitura, total"
+
+msgid "pages read today"
+msgstr "páginas lidas hoje"
+
+msgid "pages/day (7 days)"
+msgstr "páginas/dia (7 dias)"
+
+msgid "visible"
+msgstr "visível"
