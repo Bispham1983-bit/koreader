@@ -93,6 +93,7 @@ function HAWebhook:getEntityState(entity_id)
     local f      = io.popen(cmd)
     local result = f and f:read("*a") or ""
     if f then f:close() end
+    logger.info("[HAWebhook] state response", result:sub(1, 120))
     return result:match('"state"%s*:%s*"([^"]+)"')
 end
 
@@ -304,7 +305,7 @@ function HAWebhook:_showTokenDialog(tmi)
             text = _("Cancel"), id = "close", callback = function() UIManager:close(d) end,
         }, {
             text = _("Save"), is_enter_default = true, callback = function()
-                self.ha_token = d:getInputText() or ""
+                self.ha_token = (d:getInputText() or ""):gsub("%s+", "")
                 G_reader_settings:saveSetting("ha_token", self.ha_token)
                 UIManager:close(d)
                 if tmi then tmi:updateItems() end
@@ -336,6 +337,29 @@ function HAWebhook:showUrlDialog(tmi)
     d:onShowKeyboard()
 end
 
+function HAWebhook:_loadTokenFromFile(tmi)
+    local path = "/mnt/us/koreader/ha_token.txt"
+    local f = io.open(path, "r")
+    if not f then
+        UIManager:show(InfoMessage:new{
+            text    = T(_("File not found:\n%1"), path),
+            timeout = 3,
+        })
+        return
+    end
+    local token = f:read("*a")
+    f:close()
+    token = token:gsub("%s+", "")
+    if token == "" then
+        UIManager:show(InfoMessage:new{ text = _("ha_token.txt is empty."), timeout = 3 })
+        return
+    end
+    self.ha_token = token
+    G_reader_settings:saveSetting("ha_token", self.ha_token)
+    UIManager:show(InfoMessage:new{ text = _("Token loaded and saved."), timeout = 2 })
+    if tmi then tmi:updateItems() end
+end
+
 function HAWebhook:addToMainMenu(menu_items)
     menu_items.hawebhook = {
         text         = _("Home Assistant"),
@@ -358,6 +382,11 @@ function HAWebhook:addToMainMenu(menu_items)
                     end,
                     keep_menu_open = true,
                     callback     = function(tmi) self:_showTokenDialog(tmi) end,
+                },
+                {
+                    text         = _("Load token from ha_token.txt"),
+                    keep_menu_open = true,
+                    callback     = function(tmi) self:_loadTokenFromFile(tmi) end,
                 },
                 {
                     text         = _("Add action…"),
